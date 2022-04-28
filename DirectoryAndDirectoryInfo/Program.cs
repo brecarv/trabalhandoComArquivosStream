@@ -1,14 +1,52 @@
 ﻿//CriarDiretoriosGlobo();
 //CriarArquivo();
+// var origem = Path.Combine(Environment.CurrentDirectory, "brasil.txt");
+// var destino = Path.Combine(Environment.CurrentDirectory,
+//                                 "globo",
+//                                 "America do Sul",
+//                                 "Brasil",
+//                                 "brasil.txt");
+// MoverArquivo(origem, destino);
 
-var origem = Path.Combine(Environment.CurrentDirectory, "brasil.txt");
-var destino = Path.Combine(Environment.CurrentDirectory,
-                                "globo",
-                                "America do Sul",
-                                "Brasil",
-                                "brasil.txt");
+var path = Path.Combine(Environment.CurrentDirectory, "globo");
+//LerDiretorios(path);
+LerArquivos(path);
+static void LerArquivos(string path)
+{
+  var arquivos = Directory.GetFiles(path, "*", SearchOption.AllDirectories);
+  foreach (var arquivo in arquivos)
+  {
+    var fileInfo = new FileInfo(arquivo);
+    Console.WriteLine($"[Nome]:{fileInfo.Name}");
+    Console.WriteLine($"[Tamanho]:{fileInfo.Length}");
+    Console.WriteLine($"[Ultimo acesso]:{fileInfo.LastAccessTime}");
+    Console.WriteLine($"[Pasta]:{fileInfo.DirectoryName}");
+    Console.WriteLine("---------------------");
+  }
+}
 
-MoverArquivo(origem, destino);
+static void LerDiretorios(string path)
+{
+
+  if (Directory.Exists(path))
+  {
+    var directories = Directory.GetDirectories(path, "*", SearchOption.AllDirectories);
+    foreach (var dir in directories)
+    {
+      var dirInfo = new DirectoryInfo(dir);
+      Console.WriteLine($"[Nome]:{dirInfo.Name}");
+      Console.WriteLine($"[Raiz]:{dirInfo.Root}");
+      if (dirInfo.Parent != null)
+        Console.WriteLine($"[Pai]:{dirInfo.Parent.Name}");
+
+      Console.WriteLine("-----------------------------");
+    }
+  }
+  else
+  {
+    Console.WriteLine($"{path} não existe!");
+  }
+}
 
 static void CopiarArquivo(string pathOrigem, string pathDestino)
 {
