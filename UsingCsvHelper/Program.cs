@@ -15,7 +15,7 @@ static void LerCSVComOutroDelimitador()
   var path = Path.Combine(
     Environment.CurrentDirectory,
     "Entrada",
-    "livros-preco-com-virgula.csv");
+    "livros-preco-com-virgula-sem-cabecalho.csv");
   var fi = new FileInfo(path);
 
   if (!fi.Exists)
