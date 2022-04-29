@@ -15,7 +15,7 @@ static void LerCSVComOutroDelimitador()
   var path = Path.Combine(
     Environment.CurrentDirectory,
     "Entrada",
-    "livros-preco-com-virgula-sem-cabecalho.csv");
+    "livros-preco-com-virgula.csv");
   var fi = new FileInfo(path);
 
   if (!fi.Exists)
@@ -28,6 +28,7 @@ static void LerCSVComOutroDelimitador()
   };
 
   using var csvReader = new CsvReader(sr, csvConfig);
+  csvReader.Context.RegisterClassMap<UsingCsvHelper.Mapping.LivroMap>();
 
   var registros = csvReader.GetRecords<Livro>().ToList();
 
