@@ -29,7 +29,7 @@ static void LerCSVComOutroDelimitador()
 
   using var csvReader = new CsvReader(sr, csvConfig);
 
-  var registros = csvReader.GetRecords<Livro>();
+  var registros = csvReader.GetRecords<Livro>().ToList();
 
   foreach (var registro in registros)
   {
