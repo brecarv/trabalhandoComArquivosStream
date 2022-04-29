@@ -5,10 +5,52 @@ using UsingCsvHelper.Model;
 
 // LerCSVComDynamic();
 // LerCSVComClasse();
-LerCSVComOutroDelimitador();
+//LerCSVComOutroDelimitador();
+EscreverCSV();
 
 Console.WriteLine("Digite [enter] para finalizar.");
 Console.ReadLine();
+
+static void EscreverCSV()
+{
+  var path = Path.Combine(
+    Environment.CurrentDirectory,
+    "Saida");
+
+  var di = new DirectoryInfo(path);
+
+  if (!di.Exists)
+    di.Create();
+
+  path = Path.Combine(path, "usuarios.csv");
+
+  var pessoas = new List<Pessoa>(){
+    new Pessoa() {
+      Nome = "Emerson Carvalho",
+      Email = "ec@gmail.com",
+      Telefone = "11111111",
+    },
+    new Pessoa() {
+      Nome = "Emanuel Carvalho",
+      Email = "emc@gmail.com",
+      Telefone = "22222222",
+    },
+    new Pessoa() {
+      Nome = "Vagna Carvalho",
+      Email = "vc@gmail.com",
+      Telefone = "33333333",
+    },
+  };
+
+  using var sr = new StreamWriter(path);
+  var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
+  {
+    Delimiter = "|"
+  };
+  using var csvWriter = new CsvWriter(sr, csvConfig);
+  csvWriter.WriteRecords(pessoas);
+
+}
 
 static void LerCSVComOutroDelimitador()
 {
